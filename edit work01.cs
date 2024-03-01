@@ -73,19 +73,19 @@ namespace TextEditorApp
 
     public class TextEditor
     {
-        private TextFile textFile;
+        private TextFile _textFile;
         private Stack<TextFileMemento> history;
 
         public TextEditor(TextFile textFile)
         {
-            this.textFile = textFile;
+            this._textFile = textFile;
             this.history = new Stack<TextFileMemento>();
             SaveMemento();
         }
 
         public void MakeChange(string newText)
         {
-            textFile.Content = newText;
+            _textFile.Content = newText;
             SaveMemento();
         }
 
@@ -94,18 +94,18 @@ namespace TextEditorApp
             if (history.Count > 0)
             {
                 TextFileMemento previousState = history.Pop();
-                textFile.Content = previousState.Content;
+                _textFile.Content = previousState.Content;
             }
         }
 
         public override string ToString()
         {
-            return textFile.Content;
+            return _textFile.Content;
         }
 
         private void SaveMemento()
         {
-            history.Push(new TextFileMemento(textFile.Content));
+            history.Push(new TextFileMemento(_textFile.Content));
         }
     }
 
